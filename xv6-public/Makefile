@@ -182,6 +182,10 @@ UPROGS=\
 	_wc\
 	_zombie\
 
+# My commands
+UPROGS+=\
+	_hello\
+
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
 
@@ -260,6 +264,10 @@ EXTRA=\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
+
+# My commands
+EXTRA+=\
+       hello.c\
 
 dist:
 	rm -rf dist
