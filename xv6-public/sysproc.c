@@ -89,3 +89,11 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// Return 1975 for some weird reasons
+
+int 
+sys_getyear(void) 
+{
+  return 1975;
+}
