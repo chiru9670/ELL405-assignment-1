@@ -185,7 +185,7 @@ UPROGS=\
 # My commands
 UPROGS+=\
 	_hello\
-	_test_getyear\
+	_user_add\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -269,7 +269,7 @@ EXTRA=\
 # My commands
 EXTRA+=\
        hello.c\
-       test_getyear.c\
+       user_add.c\
 
 dist:
 	rm -rf dist

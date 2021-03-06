@@ -93,7 +93,10 @@ sys_uptime(void)
 // Return 1975 for some weird reasons
 
 int 
-sys_getyear(void) 
+sys_add(void) 
 {
-  return 1975;
+  int num1, num2;
+  argint(0, &num1);
+  argint(1, &num2);
+  return num1 + num2;
 }
