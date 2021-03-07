@@ -7,10 +7,14 @@ int main(int argc , char *argv [])
 // name will be sys_toggle and you
 // call it by calling the function toggle ();
     toggle ();
-    add(1,2);
-    add(1,2);
-    add(1,2);
-    print_count();
-    toggle();
+    //add(1,2);
+    //add(1,2);
+    //add(1,2);
+    ps();
+    //print_count();
+    //toggle();
+    //toggle();
+    //add(1,1);
+    //toggle();
     exit();
 }

@@ -101,9 +101,9 @@ sys_add(void)
   return num1 + num2;
 }
 // Globals
-int numSysCalls[24] = {0};
+int numSysCalls[25] = {0};
 int toggle_state = 0;
-char *sysCallName[24]= {
+char *sysCallName[25]= {
 "sys_fork",
 "sys_exit",
 "sys_wait",
@@ -128,13 +128,14 @@ char *sysCallName[24]= {
 "sys_add",
 "sys_toggle",
 "sys_print_count",
+"sys_ps",
 };
 int 
 sys_toggle(void) 
 {
   if(toggle_state==0){
     toggle_state=1;
-    for(int i=0;i<24;i++){
+    for(int i=0;i<25;i++){
       numSysCalls[i] = 0;
     }
   }else{
@@ -146,8 +147,15 @@ sys_toggle(void)
 int 
 sys_print_count(void) 
 {
-  for(int i=0;i<24;i++){
+  for(int i=0;i<25;i++){
     cprintf("%s %d\n",sysCallName[i],numSysCalls[i]);
   }
+  return 0;
+}
+
+int 
+sys_ps(void) 
+{
+  process_analyzer();
   return 0;
 }

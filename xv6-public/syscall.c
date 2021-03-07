@@ -107,9 +107,10 @@ extern int sys_add(void);
 extern int sys_(void);
 extern int sys_toggle(void);
 extern int toggle_state;
-extern int numSysCalls[24];
+extern int numSysCalls[25];
 extern int sys_print_count(void);
-char *sysCallName[24];
+char *sysCallName[25];
+extern int sys_ps(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -136,6 +137,7 @@ static int (*syscalls[])(void) = {
 [SYS_add]     sys_add,
 [SYS_toggle]  sys_toggle,
 [SYS_print_count]  sys_print_count,
+[SYS_ps]  sys_ps,
 };
 
 void

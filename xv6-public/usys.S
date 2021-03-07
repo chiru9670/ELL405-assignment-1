@@ -32,5 +32,6 @@ SYSCALL(uptime)
 SYSCALL(add)
 SYSCALL(toggle)
 SYSCALL(print_count)
+SYSCALL(ps)
 
 
