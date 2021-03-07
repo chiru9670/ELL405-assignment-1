@@ -495,12 +495,14 @@ kill(int pid)
   release(&ptable.lock);
   return -1;
 }
+
+// Print list of current running processes
 void 
 process_analyzer(){
   struct proc *p;
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if( strlen( p->name )!=0){
+    if( p->state!= UNUSED) {
       cprintf("pid:%d name:%s\n",p->pid,p->name);
     }
   }
