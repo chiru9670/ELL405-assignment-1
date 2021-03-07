@@ -202,7 +202,9 @@ int sys_print_count(void)
   }
   qsort(sysCallName, indexArr, 1, NELEM(sysCallName)-1);
   for(int i=1; i<NELEM(sysCallName);i++){
-    cprintf("%s %d\n",sysCallName[indexArr[i]],numSysCalls[indexArr[i]]);
+    if(numSysCalls[indexArr[i]] > 0) {
+      cprintf("%s %d\n",sysCallName[indexArr[i]],numSysCalls[indexArr[i]]);
+    }
   }
   return 0;
 }

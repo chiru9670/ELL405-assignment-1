@@ -190,6 +190,15 @@ UPROGS+=\
 	_print_count\
 	_test_ps\
 
+# Tester programs
+UPROGS+=\
+	_assig1_1\
+	_assig1_2\
+	_assig1_3\
+	_assig1_4\
+	_assig1_5\
+	_assig1_6\
+
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
 
@@ -276,6 +285,15 @@ EXTRA+=\
        user_toggle.c\
        print_count.c\
        test_ps.c\
+
+# Tester programs
+EXTRA+=\
+       assig1_1.c\
+       assig1_2.c\
+       assig1_3.c\
+       assig1_4.c\
+       assig1_5.c\
+       assig1_6.c\
 
 dist:
 	rm -rf dist
