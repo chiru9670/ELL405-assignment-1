@@ -500,7 +500,7 @@ process_analyzer(){
   struct proc *p;
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if(p->pid!=0){
+    if( strlen( p->name )!=0){
       cprintf("pid:%d name:%s\n",p->pid,p->name);
     }
   }
