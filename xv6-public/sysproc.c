@@ -151,11 +151,58 @@ sys_toggle(void)
   return 0;
 }
 
-int 
-sys_print_count(void) 
+// For sorting output of print_output
+int partition(const char *arr[], int indexArr[], const char x[], int left, int right)
 {
+  int i = left - 1, j = right;
+  // INV: arr[indexArr[a]] <= x for all left <= a <= i and arr[indexArr[b]] > x for all
+  // j+1 <= b <= right; left-1 <= i <= j; j <= right
+  while (i < j)
+  {
+    const char * pivotstr = arr[indexArr[i + 1]];
+    int pivotlen = strlen(pivotstr), xlen = strlen(x);
+    if (strncmp(pivotstr, x, ( pivotlen > xlen ? pivotlen : xlen ) ) <= 0)
+    {
+      i = i + 1;
+    }
+    else
+    {
+      int tmp = indexArr[j];
+      indexArr[j] = indexArr[i+1];
+      indexArr[i+1] = tmp;
+      j = j - 1;
+    }
+  }
+  int p = j;
+  // assert: p is such that arr[indexArr[a]] <= x for all left <= a <= p and
+  // arr[indexArr[b]] > x for all p+1 <= b <= right
+  return p;
+}
+
+// Modifies indexArr such that arr[indexArr[i]] <= arr[indexArr[j]]
+// for all i <= j
+void qsort(const char *arr[], int indexArr[], int left, int right)
+{
+  if (left < right)
+  {
+    int p = partition(arr, indexArr, arr[indexArr[left]], left + 1, right);
+    int tmp = indexArr[p];
+    indexArr[p] = indexArr[left];
+    indexArr[left] = tmp;
+    qsort(arr, indexArr, left, p - 1);
+    qsort(arr, indexArr, p + 1, right);
+  }
+}
+
+int sys_print_count(void) 
+{
+  int indexArr[NELEM(sysCallName)];
+  for(int i=0; i<NELEM(sysCallName);i++){
+    indexArr[i] = i;
+  }
+  qsort(sysCallName, indexArr, 1, NELEM(sysCallName)-1);
   for(int i=1; i<NELEM(sysCallName);i++){
-    cprintf("%s %d\n",sysCallName[i],numSysCalls[i]);
+    cprintf("%s %d\n",sysCallName[indexArr[i]],numSysCalls[indexArr[i]]);
   }
   return 0;
 }
