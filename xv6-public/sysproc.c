@@ -100,3 +100,54 @@ sys_add(void)
   argint(1, &num2);
   return num1 + num2;
 }
+// Globals
+int numSysCalls[24] = {0};
+int toggle_state = 0;
+char *sysCallName[24]= {
+"sys_fork",
+"sys_exit",
+"sys_wait",
+"sys_pipe",
+"sys_read",
+"sys_kill",
+"sys_exec",
+"sys_fstat",
+"sys_chdir",
+"sys_dup",
+"sys_getpid",
+"sys_sbrk",
+"sys_sleep",
+"sys_uptime",
+"sys_open",
+"sys_write",
+"sys_mknod",
+"sys_unlink",
+"sys_link",
+"sys_mkdir",
+"sys_close",
+"sys_add",
+"sys_toggle",
+"sys_print_count",
+};
+int 
+sys_toggle(void) 
+{
+  if(toggle_state==0){
+    toggle_state=1;
+    for(int i=0;i<24;i++){
+      numSysCalls[i] = 0;
+    }
+  }else{
+    toggle_state=0;
+  }
+  return 0;
+}
+
+int 
+sys_print_count(void) 
+{
+  for(int i=0;i<24;i++){
+    cprintf("%s %d\n",sysCallName[i],numSysCalls[i]);
+  }
+  return 0;
+}

@@ -30,3 +30,7 @@ SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(add)
+SYSCALL(toggle)
+SYSCALL(print_count)
+
+
