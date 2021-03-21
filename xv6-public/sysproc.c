@@ -7,6 +7,16 @@
 #include "mmu.h"
 #include "proc.h"
 
+#include "sys_send_recv_structs.h"
+// The bounded buffer used by sys_send and sys_recv
+struct buffer buf;
+
+// Initializes the bounded buffer's lock
+// Called in main.c
+void sys_send_recv_init() {
+  initlock(&buf.lock, "ipc_bounded_buffer_lock");
+}
+
 int
 sys_fork(void)
 {
@@ -133,6 +143,8 @@ const char *sysCallName[] = {
 [SYS_toggle]        "sys_toggle",
 [SYS_print_count]   "sys_print_count",
 [SYS_ps]            "sys_ps",
+[SYS_send]          "sys_send",
+[SYS_recv]          "sys_recv",
 };
 int numSysCalls[NELEM(sysCallName)] = {0};
 int toggle_state = 0;
@@ -214,4 +226,50 @@ sys_ps(void)
 {
   process_analyzer();
   return 0;
+}
+
+// Send a message to another process with a given pid
+// non-blocking, returns -1 if buffer was seen full 
+// by this function at the time when it is called
+int sys_send() {
+  int sender_pid, rec_pid;
+  char *msg;
+  argint(0, &sender_pid);
+  argint(1, &rec_pid);
+  argptr(2, &msg, MSG_LEN);
+
+  acquire(&buf.lock);
+  for(int i = 0; i < BUFFER_SIZE; ++i) {
+    if(buf.msgs[i].sender_pid <= 0) {
+      memmove(buf.msgs[i].msg, msg, MSG_LEN);
+      buf.msgs[i].sender_pid = sender_pid;
+      buf.msgs[i].rec_pid = rec_pid;
+      release(&buf.lock);
+      return 0;
+    }
+  }
+  release(&buf.lock);
+  return -1;
+}
+
+// Receive a message sent by sys_send to the current
+// process's pid
+int sys_recv() {
+  char *msg;
+  argptr(0, &msg, MSG_LEN);
+  
+  int my_pid = myproc()->pid;
+  while(1) {
+    acquire(&buf.lock);
+    for(int i = 0; i < BUFFER_SIZE; ++i) {
+      if(buf.msgs[i].rec_pid == my_pid) {
+        memmove(msg, buf.msgs[i].msg, MSG_LEN);
+        buf.msgs[i].rec_pid = -1;
+        buf.msgs[i].sender_pid = -1;
+        release(&buf.lock);
+        return 0;
+      }
+    }
+    release(&buf.lock);
+  }
 }

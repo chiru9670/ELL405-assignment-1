@@ -108,6 +108,8 @@ extern int sys_(void);
 extern int sys_toggle(void);
 extern int sys_print_count(void);
 extern int sys_ps(void);
+extern int sys_send(void);
+extern int sys_recv(void);
 
 extern int toggle_state;
 extern int numSysCalls[];
@@ -139,6 +141,8 @@ static int (*syscalls[])(void) = {
 [SYS_toggle]        sys_toggle,
 [SYS_print_count]   sys_print_count,
 [SYS_ps]            sys_ps,
+[SYS_send]          sys_send,
+[SYS_recv]          sys_recv,
 };
 
 void

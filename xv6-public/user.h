@@ -27,6 +27,8 @@ int add(int, int);
 int toggle();
 int print_count();
 int ps();
+int send(int sender_pid, int rec_pid, void *msg);
+int recv(void *msg);
 
 // ulib.c
 int stat(const char*, struct stat*);
