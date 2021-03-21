@@ -1,0 +1,6 @@
+# Ignore checker script folders
+/check_scripts
+/new_check_scripts
+
+# Result files created by ./check.sh
+xv6-public/res_assig1*
