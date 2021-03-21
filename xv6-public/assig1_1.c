@@ -10,10 +10,8 @@ main(void)
 	int cid = fork();
 	if(cid!=0){
 		print_count();
-		toggle();
-		// I had to add this so that child doesn't become a zombie
-		// It was printing 'zombie!' otherwise		
-		wait();
+		toggle();		
 	}
+	wait();
 	exit();
 }
