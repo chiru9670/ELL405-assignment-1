@@ -15,6 +15,10 @@ struct buffer buf;
 // Called in main.c
 void sys_send_recv_init() {
   initlock(&buf.lock, "ipc_bounded_buffer_lock");
+  for(int i = 0; i < BUFFER_SIZE; ++i) {
+    buf.msgs[i].sender_pid = -1;
+    buf.msgs[i].rec_pid = -1;
+  }
 }
 
 int
@@ -154,11 +158,11 @@ sys_toggle(void)
 {
   if(toggle_state==0){
     toggle_state=1;
+  }else{
+    toggle_state=0;
     for(int i=0;i<NELEM(sysCallName);i++){
       numSysCalls[i] = 0;
     }
-  }else{
-    toggle_state=0;
   }
   return 0;
 }
