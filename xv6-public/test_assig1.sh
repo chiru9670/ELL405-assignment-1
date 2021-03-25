@@ -55,10 +55,10 @@ spawn /bin/sh
 expect "$ "
 send "make qemu-nox\r"
 sleep 1
-expect "$"
+expect "$ "
 send "$testname\r"
 sleep 1
-expect "$"
+expect "$ "
 send "\x01"; send "x"
 expect "QEMU: Terminated\r"
 expect "$ "
