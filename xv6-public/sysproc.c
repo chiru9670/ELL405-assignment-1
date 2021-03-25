@@ -156,13 +156,13 @@ int toggle_state = 0;
 int 
 sys_toggle(void) 
 {
+  for(int i=0;i<NELEM(sysCallName);i++){
+    numSysCalls[i] = 0;
+  }
   if(toggle_state==0){
     toggle_state=1;
   }else{
     toggle_state=0;
-    for(int i=0;i<NELEM(sysCallName);i++){
-      numSysCalls[i] = 0;
-    }
   }
   return 0;
 }
