@@ -183,12 +183,12 @@ UPROGS=\
 	_zombie\
 
 # My commands
-UPROGS+=\
-	_hello\
-	_user_add\
-	_user_toggle\
-	_print_count\
-	_test_ps\
+# UPROGS+=\
+# 	_hello\
+# 	_user_add\
+# 	_user_toggle\
+# 	_print_count\
+# 	_test_ps\
 
 # Tester programs
 UPROGS+=\
@@ -283,12 +283,12 @@ EXTRA=\
 	.gdbinit.tmpl gdbutil\
 
 # My commands
-EXTRA+=\
-       hello.c\
-       user_add.c\
-       user_toggle.c\
-       print_count.c\
-       test_ps.c\
+# EXTRA+=\
+#        hello.c\
+#        user_add.c\
+#        user_toggle.c\
+#        print_count.c\
+#        test_ps.c\
 
 # Tester programs
 EXTRA+=\
